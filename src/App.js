@@ -6,6 +6,21 @@ import Kratos from "./Kratos.jpeg"
 import { RecoilRoot } from "recoil";
 import {getSiteConfigKey} from "./utils";
 
+// returns json promise which must be resolved
+// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  });
+
+  return response.json();
+}
+
 function App() {
   const [buildingIdx, setBuildingIdx] = useState(0)
   useEffect(() => {
@@ -36,8 +51,14 @@ function App() {
 
   const getGltf = useCallback(() => {
     const asyncThings = async () => {
-      const gltf = await postRobot.send(window.parent, 'getGeometry', "Analyze")
-      console.log(gltf)
+      const gltf = await postRobot.send(window.parent, 'getGeometry', "Analyze");
+
+      // console.log(gltf.data);
+
+      var val = await postData( '', gltf.data )
+        .then(data => {
+          console.log(data);
+        });
     }
     asyncThings()
   }, [])
@@ -50,7 +71,7 @@ function App() {
           <img src={Kratos} alt={"ZUEEES"} />
           <button onClick={sendToKronos}>ZEUS!!</button>
           <button onClick={colorBuilding0}>BOY!!</button>
-          <button onClick={getGltf}>GIVE ME GLTF!!</button>
+          <button onClick={getGltf}>Get Carbon Cost</button>
         </div>
       </React.Suspense>
     </RecoilRoot>
