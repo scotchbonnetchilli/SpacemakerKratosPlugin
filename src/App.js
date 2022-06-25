@@ -57,7 +57,7 @@ function App() {
 
       var val = await postData( '', gltf.data )
         .then(data => {
-          console.log(data);
+          console.log( 'Carbon cost =', data.totalCarbonCost );
         });
     }
     asyncThings()
