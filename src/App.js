@@ -61,11 +61,11 @@ function App() {
       var design_settings = {};
       // slabSystemType {InsituConcreteOneWay, InsituConcreteTwoWay, PreCast, TimberFloor}
       design_settings.slabSystemType = "InsituConcreteTwoWay";
-      // wallType {concrete, masonry, Timber}
+      // wallType {Concrete, Masonry, Timber}
       design_settings.wallType = "Concrete";
-      // beamMaterialType {concrete, masonry, Timber, steel}
+      // beamMaterialType {concrete, masonry, timber, steel}
       design_settings.beamMaterialType = "steel";
-      // columnMaterialType {concrete, masonry, Timber, steel}
+      // columnMaterialType {concrete, masonry, timber, steel}
       design_settings.columnMaterialType = "steel";
 
       var kratos_data = {};
