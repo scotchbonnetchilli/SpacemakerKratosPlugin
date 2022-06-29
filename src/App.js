@@ -55,9 +55,34 @@ function App() {
 
       // console.log(gltf.data);
 
-      var val = await postData( '', gltf.data )
+      const numBuildings = gltf.data.scenes[0].nodes.length;
+      console.log(`Analysing carbon cost for ${numBuildings} buildings`);
+
+      var design_settings = {};
+      // slabSystemType {InsituConcreteOneWay, InsituConcreteTwoWay, PreCast, TimberFloor}
+      design_settings.slabSystemType = "InsituConcreteTwoWay";
+      // wallType {concrete, masonry, Timber}
+      design_settings.wallType = "Concrete";
+      // beamMaterialType {concrete, masonry, Timber, steel}
+      design_settings.beamMaterialType = "steel";
+      // columnMaterialType {concrete, masonry, Timber, steel}
+      design_settings.columnMaterialType = "steel";
+
+      var kratos_data = {};
+      kratos_data.gltf_data = gltf.data;
+      kratos_data.design_settings = design_settings;
+
+      const startTime = performance.now();
+      
+      var val = await postData( '', kratos_data )
         .then(data => {
-          console.log( 'Carbon cost =', data.totalCarbonCost );
+
+          const totalCarbonCost =  Math.round( data.totalCarbonCost );
+          console.log(`Total carbon cost = ${totalCarbonCost} kgCO2`);
+
+          const endTime = performance.now();
+          const carbonCostingTime = Math.round((endTime - startTime) / 1000);
+          console.log(`Carbon costing took ${carbonCostingTime}s`);
         });
     }
     asyncThings()
