@@ -56,17 +56,24 @@ function App() {
       // console.log(gltf.data);
 
       const numBuildings = gltf.data.scenes[0].nodes.length;
-      console.log(`Analysing carbon cost for ${numBuildings} buildings`);
+      console.log(`Analysing carbon footprint for ${numBuildings} buildings`);
 
       var design_settings = {};
+
       // slabSystemType {InsituConcreteOneWay, InsituConcreteTwoWay, PreCast, TimberFloor}
-      design_settings.slabSystemType = "InsituConcreteTwoWay";
       // wallType {Concrete, Masonry, Timber}
-      design_settings.wallType = "Concrete";
       // beamMaterialType {concrete, masonry, timber, steel}
-      design_settings.beamMaterialType = "steel";
       // columnMaterialType {concrete, masonry, timber, steel}
+
+      design_settings.slabSystemType = "InsituConcreteTwoWay";
+      design_settings.wallType = "Concrete";
+      design_settings.beamMaterialType = "steel";
       design_settings.columnMaterialType = "steel";
+
+      // design_settings.slabSystemType = "InsituConcreteTwoWay";
+      // design_settings.wallType = "Timber";
+      // design_settings.beamMaterialType = "timber";
+      // design_settings.columnMaterialType = "timber";
 
       var kratos_data = {};
       kratos_data.gltf_data = gltf.data;
@@ -77,8 +84,8 @@ function App() {
       var val = await postData( '', kratos_data )
         .then(data => {
 
-          const totalCarbonCost =  Math.round( data.totalCarbonCost );
-          console.log(`Total carbon cost = ${totalCarbonCost} kgCO2`);
+          const totalCarbonFootprint =  Math.round( data.totalCarbonFootprint );
+          console.log(`Total carbon footprint = ${totalCarbonFootprint} kgCO2`);
 
           const endTime = performance.now();
           const carbonCostingTime = Math.round((endTime - startTime) / 1000);
