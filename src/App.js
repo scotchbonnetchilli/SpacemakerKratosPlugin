@@ -55,9 +55,6 @@ function App() {
 
       // console.log(gltf.data);
 
-      const numBuildings = gltf.data.scenes[0].nodes.length;
-      console.log(`Analysing carbon footprint for ${numBuildings} buildings`);
-
       var design_settings = {};
 
       // slabSystemType {InsituConcreteOneWay, InsituConcreteTwoWay, PreCast, TimberFloor}
@@ -65,19 +62,41 @@ function App() {
       // beamMaterialType {concrete, masonry, timber, steel}
       // columnMaterialType {concrete, masonry, timber, steel}
 
-      const useSteelConcrete = false;
+      const ANALYSIS_TYPE = {
+        STEEL:'STEEL',
+        CONCRETE:'CONCRETE',
+        TIMBER:'TIMBER'
+      }
+      const analysisType = ANALYSIS_TYPE.CONCRETE;
 
-      if (useSteelConcrete) {
-        design_settings.slabSystemType = "InsituConcreteTwoWay";
-        design_settings.wallType = "Concrete";
-        design_settings.beamMaterialType = "steel";
-        design_settings.columnMaterialType = "steel";
+      switch (analysisType) {
+
+        case ANALYSIS_TYPE.STEEL:
+          design_settings.slabSystemType = "InsituConcreteTwoWay";
+          design_settings.wallType = "Concrete";
+          design_settings.beamMaterialType = "steel";
+          design_settings.columnMaterialType = "steel";
+          break;
+
+        case ANALYSIS_TYPE.CONCRETE:
+          design_settings.slabSystemType = "InsituConcreteTwoWay";
+          design_settings.wallType = "Concrete";
+          design_settings.beamMaterialType = "concrete";
+          design_settings.columnMaterialType = "concrete";
+          break;
+
+        case ANALYSIS_TYPE.TIMBER:
+          design_settings.slabSystemType = "TimberFloor";
+          design_settings.beamMaterialType = "timber";
+          design_settings.columnMaterialType = "timber";
+          break;
+
+        default:
+          console.log('Analysis type not recognised');
       }
-      else {
-        design_settings.slabSystemType = "TimberFloor";
-        design_settings.beamMaterialType = "timber";
-        design_settings.columnMaterialType = "timber";
-      }
+
+      const numBuildings = gltf.data.scenes[0].nodes.length;
+      console.log(`Analysing ${analysisType} material carbon footprint for ${numBuildings} buildings`);
 
       var kratos_data = {};
       kratos_data.gltf_data = gltf.data;
