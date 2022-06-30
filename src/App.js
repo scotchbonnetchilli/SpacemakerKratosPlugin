@@ -1,21 +1,21 @@
 import './App.css';
 import * as postRobot from "post-robot";
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import UploadSpinner from "./upload.svg"
 import Kratos from "./Kratos.jpeg"
 import { RecoilRoot } from "recoil";
-import {getSiteConfigKey} from "./utils";
+import { getSiteConfigKey } from "./utils";
 
 // returns json promise which must be resolved
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 async function postData(url = '', data = {}) {
   // Default options are marked with *
   const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
   });
 
   return response.json();
@@ -43,8 +43,8 @@ function App() {
 
   const colorBuilding0 = useCallback(() => {
     const asyncThings = async () => {
-      await postRobot.send(window.parent, 'setColorOfBuilding', { buildingIndex: buildingIdx, color: [1, 0 ,0] })
-      setBuildingIdx(buildingIdx+1)
+      await postRobot.send(window.parent, 'setColorOfBuilding', { buildingIndex: buildingIdx, color: [1, 0, 0] })
+      setBuildingIdx(buildingIdx + 1)
     }
     asyncThings()
   }, [buildingIdx, setBuildingIdx])
@@ -65,26 +65,31 @@ function App() {
       // beamMaterialType {concrete, masonry, timber, steel}
       // columnMaterialType {concrete, masonry, timber, steel}
 
-      design_settings.slabSystemType = "InsituConcreteTwoWay";
-      design_settings.wallType = "Concrete";
-      design_settings.beamMaterialType = "steel";
-      design_settings.columnMaterialType = "steel";
+      const useSteelConcrete = true;
 
-      // design_settings.slabSystemType = "InsituConcreteTwoWay";
-      // design_settings.wallType = "Timber";
-      // design_settings.beamMaterialType = "timber";
-      // design_settings.columnMaterialType = "timber";
+      if (useSteelConcrete) {
+        design_settings.slabSystemType = "InsituConcreteTwoWay";
+        design_settings.wallType = "Concrete";
+        design_settings.beamMaterialType = "steel";
+        design_settings.columnMaterialType = "steel";
+      }
+      else {
+        design_settings.slabSystemType = "InsituConcreteTwoWay";
+        design_settings.wallType = "Timber";
+        design_settings.beamMaterialType = "timber";
+        design_settings.columnMaterialType = "timber";
+      }
 
       var kratos_data = {};
       kratos_data.gltf_data = gltf.data;
       kratos_data.design_settings = design_settings;
 
       const startTime = performance.now();
-      
-      var val = await postData( '', kratos_data )
+
+      var val = await postData('', kratos_data)
         .then(data => {
 
-          const totalCarbonFootprint =  Math.round( data.totalCarbonFootprint );
+          const totalCarbonFootprint = Math.round(data.totalCarbonFootprint);
           console.log(`Total carbon footprint = ${totalCarbonFootprint} kgCO2`);
 
           const endTime = performance.now();
