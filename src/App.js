@@ -65,7 +65,7 @@ function App() {
       // beamMaterialType {concrete, masonry, timber, steel}
       // columnMaterialType {concrete, masonry, timber, steel}
 
-      const useSteelConcrete = true;
+      const useSteelConcrete = false;
 
       if (useSteelConcrete) {
         design_settings.slabSystemType = "InsituConcreteTwoWay";
@@ -74,8 +74,7 @@ function App() {
         design_settings.columnMaterialType = "steel";
       }
       else {
-        design_settings.slabSystemType = "InsituConcreteTwoWay";
-        design_settings.wallType = "Timber";
+        design_settings.slabSystemType = "TimberFloor";
         design_settings.beamMaterialType = "timber";
         design_settings.columnMaterialType = "timber";
       }
