@@ -72,23 +72,23 @@ function App() {
       switch (analysisType) {
 
         case ANALYSIS_TYPE.STEEL:
-          design_settings.slabSystemType = "InsituConcreteTwoWay";
-          design_settings.wallType = "Concrete";
-          design_settings.beamMaterialType = "steel";
-          design_settings.columnMaterialType = "steel";
+          design_settings.slabSystemType = "PRECAST";
+          design_settings.wallType = "CONCRETE";
+          design_settings.beamMaterialType = "STEEL";
+          design_settings.columnMaterialType = "STEEL";
           break;
 
         case ANALYSIS_TYPE.CONCRETE:
-          design_settings.slabSystemType = "InsituConcreteTwoWay";
-          design_settings.wallType = "Concrete";
-          design_settings.beamMaterialType = "concrete";
-          design_settings.columnMaterialType = "concrete";
+          design_settings.slabSystemType = "INSITU_CONCRETE_TWO_WAY";
+          design_settings.wallType = "CONCRETE";
+          design_settings.beamMaterialType = "CONCRETE";
+          design_settings.columnMaterialType = "CONCRETE";
           break;
 
         case ANALYSIS_TYPE.TIMBER:
-          design_settings.slabSystemType = "TimberFloor";
-          design_settings.beamMaterialType = "timber";
-          design_settings.columnMaterialType = "timber";
+          design_settings.slabSystemType = "TIMBER_FLOOR";
+          design_settings.beamMaterialType = "TIMBER";
+          design_settings.columnMaterialType = "TIMBER";
           break;
 
         default:
