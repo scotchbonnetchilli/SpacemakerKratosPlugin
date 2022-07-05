@@ -5,16 +5,16 @@
   "homepage": "https://simon-andersson-adsk.github.io/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.1",
     "@turf/area": "^6.5.0",
-    "jszip": "^3.9.1",
+    "jszip": "^3.10.0",
     "post-robot": "^10.0.46",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-scripts": "5.0.0",
-    "recoil": "^0.7.0",
-    "three": "^0.139.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "recoil": "^0.7.4",
+    "three": "^0.142.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -45,7 +45,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^4.0.0"
   },
   "proxy": "http://localhost:3000/"
 }
