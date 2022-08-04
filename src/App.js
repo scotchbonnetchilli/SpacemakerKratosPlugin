@@ -107,7 +107,7 @@ function App() {
       var val = await postData('', kratos_data)
         .then(data => {
 
-          const totalCarbonFootprint = Math.round(data.totalCarbonFootprint);
+          const totalCarbonFootprint = Math.round(data.output.totalCarbonFootprint);
           console.log(`Total carbon footprint = ${totalCarbonFootprint} kgCO2`);
 
           const endTime = performance.now();
